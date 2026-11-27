@@ -4,143 +4,342 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZAZA'S AI</title>
+<title>ZAZA'S AI — Creative Studio</title>
 <style>
-*{box-sizing:border-box}
-body{
-margin:0;
-background:#10090d;
-color:#f5e9e8;
-font-family:Arial,sans-serif;
+:root {
+  --wine:#4b101e;
+  --wine2:#711d32;
+  --black:#100d0e;
+  --panel:#1b1517;
+  --gold:#c9a66b;
+  --cream:#f3e9dc;
+  --muted:#aa9ba0;
 }
-header{
-padding:24px 8%;
-border-bottom:1px solid #59303e;
-display:flex;
-justify-content:space-between;
-align-items:center;
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--black);
+  color:var(--cream);
+  font-family:Georgia, 'Times New Roman', serif;
 }
-.logo{font:26px Georgia;color:#d58b9e}
-nav a{color:#e8cbd3;margin-left:20px;text-decoration:none}
-.hero{
-padding:100px 8%;
-background:linear-gradient(120deg,#351522,#10090d 75%);
+button,textarea { font:inherit; }
+button { cursor:pointer; }
+.layout { display:flex; min-height:100vh; }
+.sidebar {
+  width:245px;
+  background:#160f11;
+  border-right:1px solid #38252a;
+  padding:28px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:28px;
 }
-.hero h1{
-font:clamp(42px,7vw,75px) Georgia;
-max-width:750px;
+.logo { color:var(--gold); font-size:25px; letter-spacing:3px; }
+.logo small {
+  display:block;
+  color:var(--muted);
+  font:10px Arial,sans-serif;
+  letter-spacing:4px;
+  margin-top:8px;
 }
-.hero h1 span{color:#c56c88}
-.hero p{color:#c9b5bb;line-height:1.8;max-width:550px}
-button{
-background:#812c49;
-color:white;
-border:1px solid #bd718a;
-padding:14px 24px;
-border-radius:8px;
-cursor:pointer;
+.nav-title {
+  color:#89777c;
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  margin:8px 10px;
 }
-section{padding:65px 8%}
-h2{font:36px Georgia}
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
+.nav button {
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:13px;
+  border:0;
+  background:transparent;
+  color:#c9b9bd;
+  border-radius:8px;
+  margin:4px 0;
+  font-size:14px;
 }
-.card{
-background:#21141b;
-border:1px solid #59303e;
-padding:28px;
-border-radius:15px;
+.nav button:hover,.nav button.active {
+  background:#3b1b24;
+  color:var(--gold);
 }
-.card p{color:#c5adb5;line-height:1.6}
-textarea{
-width:100%;
-height:130px;
-background:#1b1117;
-color:white;
-border:1px solid #754052;
-border-radius:10px;
-padding:15px;
-font-size:16px;
+.sidebar-bottom { margin-top:auto; }
+.premium-mini {
+  border:1px solid #77543b;
+  border-radius:12px;
+  padding:16px;
+  background:linear-gradient(145deg,#32151e,#1a1214);
 }
-.price{font:36px Georgia;color:#d58b9e}
-footer{
-padding:30px;
-text-align:center;
-color:#bba7ae;
-border-top:1px solid #59303e;
+.premium-mini p {
+  color:var(--muted);
+  font:12px Arial,sans-serif;
+  line-height:1.5;
+}
+.main { flex:1; min-width:0; padding:38px 5%; }
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:45px;
+}
+.topbar span { color:var(--muted); font:12px Arial,sans-serif; }
+.profile {
+  border:1px solid #49353a;
+  border-radius:30px;
+  padding:10px 15px;
+  color:var(--gold);
+  font:12px Arial,sans-serif;
+}
+.eyebrow {
+  color:var(--gold);
+  letter-spacing:3px;
+  font:10px Arial,sans-serif;
+  text-transform:uppercase;
+}
+h1 { font-size:clamp(35px,5vw,58px); font-weight:normal; margin:14px 0; }
+h1 em { color:var(--gold); font-weight:normal; }
+.subtitle { color:var(--muted); font:14px Arial,sans-serif; line-height:1.7; }
+.section-title { font-size:23px; font-weight:normal; margin:45px 0 20px; }
+.tools {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.tool {
+  text-align:left;
+  background:linear-gradient(145deg,#26181d,#171214);
+  border:1px solid #493038;
+  border-radius:13px;
+  padding:23px;
+  color:var(--cream);
+  min-height:155px;
+  transition:.2s;
+}
+.tool:hover {
+  transform:translateY(-3px);
+  border-color:var(--gold);
+}
+.tool .symbol { font-size:25px; color:var(--gold); }
+.tool h3 { font-size:20px; font-weight:normal; margin:15px 0 7px; }
+.tool p { color:var(--muted); font:12px Arial,sans-serif; line-height:1.6; margin:0; }
+.studio {
+  margin-top:35px;
+  padding:25px;
+  background:var(--panel);
+  border:1px solid #493038;
+  border-radius:15px;
+}
+.studio h2 { font-weight:normal; font-size:24px; margin:0 0 8px; }
+.studio p { color:var(--muted); font:12px Arial,sans-serif; }
+textarea {
+  width:100%;
+  min-height:125px;
+  resize:vertical;
+  background:#100d0e;
+  border:1px solid #493038;
+  border-radius:9px;
+  padding:16px;
+  color:var(--cream);
+  outline:none;
+  margin-top:15px;
+  font:14px Arial,sans-serif;
+}
+textarea:focus { border-color:var(--gold); }
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:14px;
+}
+.primary,.secondary {
+  border-radius:7px;
+  padding:12px 19px;
+  border:1px solid var(--gold);
+}
+.primary {
+  background:var(--gold);
+  color:#211511;
+}
+.secondary { background:transparent; color:var(--gold); }
+.output {
+  display:none;
+  margin-top:18px;
+  padding:18px;
+  border-left:2px solid var(--gold);
+  background:#21171a;
+  color:#e7d9d0;
+  font:14px/1.7 Arial,sans-serif;
+  white-space:pre-wrap;
+}
+.premium {
+  margin-top:35px;
+  border:1px solid #8b6945;
+  border-radius:14px;
+  padding:27px;
+  background:linear-gradient(120deg,#3c1722,#1b1215);
+}
+.premium h2 { font-weight:normal; font-size:26px; }
+.price { color:var(--gold); font-size:32px; }
+.premium p { color:#c4b3b2; font:13px Arial,sans-serif; line-height:1.7; }
+.footer {
+  margin-top:45px;
+  color:#76676b;
+  font:10px Arial,sans-serif;
+  text-align:center;
+}
+@media(max-width:700px) {
+  .layout { display:block; }
+  .sidebar { width:100%; padding:18px; }
+  .sidebar-bottom { display:none; }
+  .nav { display:flex; overflow-x:auto; gap:5px; }
+  .nav-title { display:none; }
+  .nav button { width:auto; white-space:nowrap; }
+  .main { padding:25px 18px; }
+  .topbar { margin-bottom:35px; }
+  .tools { grid-template-columns:1fr; }
 }
 </style>
 </head>
 <body>
-<header>
-<div class="logo">ZAZA'S AI ✦</div>
-<nav>
-<a href="#inicio">Início</a>
-<a href="#ferramentas">Ferramentas</a>
-<a href="#premium">Premium</a>
-</nav>
-</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">ZAZA'S AI
+      <small>CREATIVE INTELLIGENCE</small>
+    </div>
 
-<div class="hero" id="inicio">
-<p>✦ SEU UNIVERSO CRIATIVO</p>
-<h1>Transforme suas ideias em <span>arte.</span></h1>
-<p>Bem-vinda à ZAZA'S AI. Um estúdio criativo para histórias, imagens, vídeos e projetos extraordinários.</p>
-<a href="#ferramentas"><button>Explorar plataforma ↗</button></a>
-</div>
+    <div class="nav">
+      <div class="nav-title">MENU PRINCIPAL</div>
+      <button class="active" onclick="showSection('home',this)">⌂ &nbsp; Início</button>
+      <button onclick="chooseTool('Chat',this)">✧ &nbsp; ZAZA Chat</button>
+      <button onclick="chooseTool('Imagens',this)">▧ &nbsp; Imagens</button>
+      <button onclick="chooseTool('Filmes',this)">▶ &nbsp; Filmes</button>
+      <button onclick="chooseTool('Histórias',this)">✎ &nbsp; Histórias</button>
+      <button onclick="showSection('premium',this)">♛ &nbsp; Premium</button>
+    </div>
 
-<section id="ferramentas">
-<h2>Seu universo de criação</h2>
-<div class="cards">
-<div class="card">
-<h2>✧ Imagens</h2>
-<p>Crie conceitos visuais e explore novas ideias artísticas.</p>
-</div>
-<div class="card">
-<h2>▶ Vídeos</h2>
-<p>Desenvolva roteiros e conceitos cinematográficos.</p>
-</div>
-<div class="card">
-<h2>✒ Histórias</h2>
-<p>Crie personagens, histórias e universos inteiros.</p>
-</div>
-</div>
-</section>
+    <div class="sidebar-bottom">
+      <div class="premium-mini">
+        <div style="color:var(--gold)">♛ ZAZA PREMIUM</div>
+        <p>Um universo de criatividade em um só lugar.</p>
+        <button class="secondary" onclick="showSection('premium')">Conhecer planos</button>
+      </div>
+    </div>
+  </aside>
 
-<section>
-<h2>Seu espaço criativo</h2>
-<p>Qual é a sua próxima grande ideia?</p>
-<textarea id="ideia" placeholder="Escreva sua ideia aqui..."></textarea>
-<br><br>
-<button onclick="criar()">Preparar meu projeto ✦</button>
-<p id="resultado"></p>
-</section>
+  <main class="main">
+    <div class="topbar">
+      <span>SEU UNIVERSO CRIATIVO</span>
+      <div class="profile">✧ Meu estúdio</div>
+    </div>
 
-<section id="premium">
-<h2>Experiência Premium</h2>
-<div class="card">
-<p>ACESSO PREMIUM</p>
-<div class="price">US$ 20/mês</div>
-<p>Uma experiência criativa planejada para recursos avançados.</p>
-<button onclick="alert('Assinaturas ainda serão ativadas!')">Conhecer Premium</button>
+    <section id="home">
+      <div class="eyebrow">Bem-vinda ao seu estúdio</div>
+      <h1>Imagine. Crie.<br><em>Transforme.</em></h1>
+      <p class="subtitle">
+        Suas ideias merecem um universo inteiro.<br>
+        Explore as ferramentas criativas da ZAZA'S AI.
+      </p>
+
+      <h2 class="section-title">Explore seu universo</h2>
+      <div class="tools">
+        <button class="tool" onclick="chooseTool('Chat')">
+          <div class="symbol">✧</div>
+          <h3>ZAZA Chat</h3>
+          <p>Converse, desenvolva ideias e explore possibilidades.</p>
+        </button>
+        <button class="tool" onclick="chooseTool('Imagens')">
+          <div class="symbol">▧</div>
+          <h3>ZAZA Images</h3>
+          <p>Transforme descrições em conceitos visuais.</p>
+        </button>
+        <button class="tool" onclick="chooseTool('Filmes')">
+          <div class="symbol">▶</div>
+          <h3>ZAZA Movies</h3>
+          <p>Crie conceitos, cenas e roteiros cinematográficos.</p>
+        </button>
+        <button class="tool" onclick="chooseTool('Histórias')">
+          <div class="symbol">✎</div>
+          <h3>ZAZA Stories</h3>
+          <p>Desenvolva personagens e histórias originais.</p>
+        </button>
+      </div>
+
+      <div class="studio" id="studio">
+        <div class="eyebrow">Seu espaço de criação</div>
+        <h2 id="studioTitle">O que vamos criar hoje?</h2>
+        <p id="studioDescription">Escolha uma ferramenta ou escreva sua ideia abaixo.</p>
+        <textarea id="prompt" placeholder="Descreva sua ideia aqui..."></textarea>
+        <div class="actions">
+          <button class="primary" onclick="createDraft()">Criar projeto ✧</button>
+          <button class="secondary" onclick="clearDraft()">Limpar</button>
+        </div>
+        <div class="output" id="output"></div>
+      </div>
+    </section>
+
+    <section class="premium" id="premium" style="display:none">
+      <div class="eyebrow">Uma experiência especial</div>
+      <h2>ZAZA'S <em style="color:var(--gold)">PREMIUM</em></h2>
+      <div class="price">US$ 20 <span style="font-size:13px">/ mês</span></div>
+      <p>A proposta do plano Premium é reunir ferramentas avançadas de criação, organização de projetos e experiências exclusivas.</p>
+      <p><strong>Em desenvolvimento:</strong> pagamentos, contas, geração por IA e recursos exclusivos ainda precisam ser conectados e configurados.</p>
+      <button class="secondary" onclick="showSection('home')">Voltar ao estúdio</button>
+    </section>
+
+    <div class="footer">ZAZA'S AI © 2026 · CREATIVE INTELLIGENCE</div>
+  </main>
 </div>
-</section>
-
-<footer>
-ZAZA'S AI © 2026 — Creative Studio
-</footer>
 
 <script>
-function criar(){
-let ideia=document.getElementById("ideia").value;
-if(!ideia.trim()){
-alert("Escreva sua ideia primeiro!");
-return;
+let currentTool = "Projeto";
+
+function chooseTool(tool,button) {
+  currentTool = tool;
+  document.getElementById("home").style.display = "block";
+  document.getElementById("premium").style.display = "none";
+  document.getElementById("studioTitle").textContent = "ZAZA " + tool;
+  const descriptions = {
+    Chat:"Escreva uma pergunta ou uma ideia para desenvolver.",
+    Imagens:"Descreva a imagem que você gostaria de criar.",
+    Filmes:"Conte sua ideia de filme ou cena.",
+    Histórias:"Comece com um personagem, lugar ou acontecimento."
+  };
+  document.getElementById("studioDescription").textContent = descriptions[tool];
+  document.getElementById("prompt").placeholder = "Escreva sua ideia para " + tool + "...";
+  document.getElementById("studio").scrollIntoView({behavior:"smooth"});
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  if(button) button.classList.add("active");
 }
-document.getElementById("resultado").innerText=
-"Sua ideia foi registrada como rascunho: "+ideia+
-". A integração com IA será adicionada posteriormente.";
+
+function showSection(section,button) {
+  document.getElementById("home").style.display = section === "home" ? "block" : "none";
+  document.getElementById("premium").style.display = section === "premium" ? "block" : "none";
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  if(button) button.classList.add("active");
+}
+
+function createDraft() {
+  const prompt = document.getElementById("prompt").value.trim();
+  const output = document.getElementById("output");
+  if(!prompt) {
+    output.style.display = "block";
+    output.textContent = "Escreva sua ideia primeiro para começar seu projeto.";
+    return;
+  }
+  output.style.display = "block";
+  output.textContent =
+    "✧ PROJETO ZAZA'S AI\n\n" +
+    "Ferramenta: " + currentTool + "\n\n" +
+    "Sua ideia:\n" + prompt +
+    "\n\nSeu projeto foi organizado neste espaço de demonstração. " +
+    "A conexão com a inteligência artificial será adicionada na próxima etapa.";
+}
+
+function clearDraft() {
+  document.getElementById("prompt").value = "";
+  document.getElementById("output").style.display = "none";
 }
 </script>
 </body>
