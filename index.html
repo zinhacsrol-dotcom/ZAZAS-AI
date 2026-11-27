@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZAZA'S AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+background:#10090d;
+color:#f5e9e8;
+font-family:Arial,sans-serif;
+}
+header{
+padding:24px 8%;
+border-bottom:1px solid #59303e;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.logo{font:26px Georgia;color:#d58b9e}
+nav a{color:#e8cbd3;margin-left:20px;text-decoration:none}
+.hero{
+padding:100px 8%;
+background:linear-gradient(120deg,#351522,#10090d 75%);
+}
+.hero h1{
+font:clamp(42px,7vw,75px) Georgia;
+max-width:750px;
+}
+.hero h1 span{color:#c56c88}
+.hero p{color:#c9b5bb;line-height:1.8;max-width:550px}
+button{
+background:#812c49;
+color:white;
+border:1px solid #bd718a;
+padding:14px 24px;
+border-radius:8px;
+cursor:pointer;
+}
+section{padding:65px 8%}
+h2{font:36px Georgia}
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+.card{
+background:#21141b;
+border:1px solid #59303e;
+padding:28px;
+border-radius:15px;
+}
+.card p{color:#c5adb5;line-height:1.6}
+textarea{
+width:100%;
+height:130px;
+background:#1b1117;
+color:white;
+border:1px solid #754052;
+border-radius:10px;
+padding:15px;
+font-size:16px;
+}
+.price{font:36px Georgia;color:#d58b9e}
+footer{
+padding:30px;
+text-align:center;
+color:#bba7ae;
+border-top:1px solid #59303e;
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">ZAZA'S AI ✦</div>
+<nav>
+<a href="#inicio">Início</a>
+<a href="#ferramentas">Ferramentas</a>
+<a href="#premium">Premium</a>
+</nav>
+</header>
+
+<div class="hero" id="inicio">
+<p>✦ SEU UNIVERSO CRIATIVO</p>
+<h1>Transforme suas ideias em <span>arte.</span></h1>
+<p>Bem-vinda à ZAZA'S AI. Um estúdio criativo para histórias, imagens, vídeos e projetos extraordinários.</p>
+<a href="#ferramentas"><button>Explorar plataforma ↗</button></a>
+</div>
+
+<section id="ferramentas">
+<h2>Seu universo de criação</h2>
+<div class="cards">
+<div class="card">
+<h2>✧ Imagens</h2>
+<p>Crie conceitos visuais e explore novas ideias artísticas.</p>
+</div>
+<div class="card">
+<h2>▶ Vídeos</h2>
+<p>Desenvolva roteiros e conceitos cinematográficos.</p>
+</div>
+<div class="card">
+<h2>✒ Histórias</h2>
+<p>Crie personagens, histórias e universos inteiros.</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Seu espaço criativo</h2>
+<p>Qual é a sua próxima grande ideia?</p>
+<textarea id="ideia" placeholder="Escreva sua ideia aqui..."></textarea>
+<br><br>
+<button onclick="criar()">Preparar meu projeto ✦</button>
+<p id="resultado"></p>
+</section>
+
+<section id="premium">
+<h2>Experiência Premium</h2>
+<div class="card">
+<p>ACESSO PREMIUM</p>
+<div class="price">US$ 20/mês</div>
+<p>Uma experiência criativa planejada para recursos avançados.</p>
+<button onclick="alert('Assinaturas ainda serão ativadas!')">Conhecer Premium</button>
+</div>
+</section>
+
+<footer>
+ZAZA'S AI © 2026 — Creative Studio
+</footer>
+
+<script>
+function criar(){
+let ideia=document.getElementById("ideia").value;
+if(!ideia.trim()){
+alert("Escreva sua ideia primeiro!");
+return;
+}
+document.getElementById("resultado").innerText=
+"Sua ideia foi registrada como rascunho: "+ideia+
+". A integração com IA será adicionada posteriormente.";
+}
+</script>
+</body>
+</html>
