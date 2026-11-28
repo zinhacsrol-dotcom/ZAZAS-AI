@@ -292,81 +292,93 @@ textarea:focus { border-color:var(--gold); }
   </main>
 </div>
 
-<script>
+
 let currentTool = "Projeto";
 
-function chooseTool(tool,button) {
+function chooseTool(tool, button) {
   currentTool = tool;
   document.getElementById("home").style.display = "block";
   document.getElementById("premium").style.display = "none";
   document.getElementById("studioTitle").textContent = "ZAZA " + tool;
+
   const descriptions = {
-    Chat:"Escreva uma pergunta ou uma ideia para desenvolver.",
-    Imagens:"Descreva a imagem que você gostaria de criar.",
-    Filmes:"Conte sua ideia de filme ou cena.",
-    Histórias:"Comece com um personagem, lugar ou acontecimento."
+    Chat: "Escreva uma pergunta ou uma ideia para desenvolver.",
+    Imagens: "Descreva a imagem que você gostaria de criar.",
+    Filmes: "Conte sua ideia de filme ou cena.",
+    Histórias: "Comece com um personagem, lugar ou acontecimento."
   };
-  document.getElementById("studioDescription").textContent = descriptions[tool];
-  document.getElementById("prompt").placeholder = "Escreva sua ideia para " + tool + "...";
-  document.getElementById("studio").scrollIntoView({behavior:"smooth"});
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-  if(button) button.classList.add("active");
+
+  document.getElementById("studioDescription").textContent =
+    descriptions[tool] || "Descreva sua ideia.";
+
+  document.getElementById("prompt").placeholder =
+    "Escreva sua ideia para " + tool + "...";
+
+  document.getElementById("studio").scrollIntoView({ behavior: "smooth" });
+
+  document.querySelectorAll(".nav button").forEach(item =>
+    item.classList.remove("active")
+  );
+
+  if (button) button.classList.add("active");
 }
 
-function showSection(section,button) {
-  document.getElementById("home").style.display = section === "home" ? "block" : "none";
-  document.getElementById("premium").style.display = section === "premium" ? "block" : "none";
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-  if(button) button.classList.add("active");
+function showSection(section, button) {
+  document.getElementById("home").style.display =
+    section === "home" ? "block" : "none";
+
+  document.getElementById("premium").style.display =
+    section === "premium" ? "block" : "none";
+
+  document.querySelectorAll(".nav button").forEach(item =>
+    item.classList.remove("active")
+  );
+
+  if (button) button.classList.add("active");
 }
 
-
-output.style.display = "block";
-output.textContent =
-  "✧ PROJETO ZAZA'S AI
+async function createDraft() {
+  const prompt = document.getElementById("prompt").value.trim();
+  const output = document.getElementById("output");
 
   output.style.display = "block";
-  output.textContent = "ZAZA'S AI está pensando...";
+
+  if (!prompt) {
+    output.textContent = "Escreva sua ideia primeiro para começarmos.";
+    return;
+  }
+
+  output.textContent = "Organizando seu projeto...";
 
   try {
     const response = await fetch("/api/chat", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        message: prompt,
-        tool: currentTool
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: prompt, tool: currentTool })
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || "Erro na conexão.");
+      throw new Error(data.error || "Conexão indisponível.");
     }
 
-    output.textContent = data.reply;
-
+    output.textContent = data.reply || "A resposta chegou vazia. Tente novamente.";
   } catch (error) {
     output.textContent =
-      "Não consegui responder agora. " + error.message;
+      "✧ RASCUNHO DO SEU PROJETO\n\n" +
+      "Ferramenta: " + currentTool + "\n\n" +
+      "Sua ideia:\n" + prompt + "\n\n" +
+      "A interface está funcionando, mas a inteligência artificial ainda não foi conectada. Esta é uma prévia, não uma resposta gerada por IA.";
   }
-}
-
-  output.style.display = "block";
-  output.textContent =
-    "✧ PROJETO ZAZA'S AI\n\n" +
-    "Ferramenta: " + currentTool + "\n\n" +
-    "Sua ideia:\n" + prompt +
-    "\n\nSeu projeto foi organizado neste espaço de demonstração. " +
-    "A conexão com a inteligência artificial será adicionada na próxima etapa.";
 }
 
 function clearDraft() {
   document.getElementById("prompt").value = "";
-  document.getElementById("output").style.display = "none";
+  const output = document.getElementById("output");
+  output.textContent = "";
+  output.style.display = "none";
 }
-</script>
+
 </body>
 </html>
