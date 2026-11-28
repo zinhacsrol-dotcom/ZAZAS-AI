@@ -320,14 +320,46 @@ function showSection(section,button) {
   if(button) button.classList.add("active");
 }
 
-function createDraft() {
+
+async function createDraft() {
   const prompt = document.getElementById("prompt").value.trim();
   const output = document.getElementById("output");
-  if(!prompt) {
+
+  if (!prompt) {
     output.style.display = "block";
-    output.textContent = "Escreva sua ideia primeiro para começar seu projeto.";
+    output.textContent = "Escreva sua ideia primeiro!";
     return;
   }
+
+  output.style.display = "block";
+  output.textContent = "ZAZA'S AI está pensando...";
+
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: prompt,
+        tool: currentTool
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Erro na conexão.");
+    }
+
+    output.textContent = data.reply;
+
+  } catch (error) {
+    output.textContent =
+      "Não consegui responder agora. " + error.message;
+  }
+}
+
   output.style.display = "block";
   output.textContent =
     "✧ PROJETO ZAZA'S AI\n\n" +
